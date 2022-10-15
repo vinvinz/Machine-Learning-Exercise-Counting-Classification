@@ -1,0 +1,5 @@
+#Install Jupyter Notebook
+    pip install Jupyter
+
+    #To run Jupyter Notebook type:
+    jupyter notebook
