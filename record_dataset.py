@@ -10,11 +10,11 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
-cap = cv2.VideoCapture('../videos/sit-ups_vid.mp4')
+cap = cv2.VideoCapture('../videos/Situps.jpg')
 
 #array of variables containing file urls, labels etc.
 vars = {
-    "label": 1,
+    "label": 4,
     "recordID": 0,
     "csvFile": "test_dataset.csv",
     "mediaURL": ""
@@ -41,6 +41,7 @@ def export_landmark(result, label, recordID):
     try:
         keypoints = np.array([[res.x,res.y] for res in result.pose_landmarks.landmark]).flatten()
         keypoints = np.insert(keypoints, 0, label)
+        print(keypoints)
         writeCSV(vars["csvFile"], keypoints)
     except Exception as e:
         print(e)
@@ -53,7 +54,7 @@ with mp_pose.Pose(
     min_tracking_confidence=0.5) as pose:
   while cap.isOpened():
     success, image = cap.read()
-    image = cv2.resize(image, (960, 540))
+    # image = cv2.resize(image, (960, 540))
     if not success:
       print("Ignoring empty camera frame.")
       # If loading a video, use 'break' instead of 'continue'.
@@ -78,7 +79,7 @@ with mp_pose.Pose(
       continue    
     
     # If condition for triggering dataset capture
-    
+    export_landmark(results, vars["label"], vars["recordID"])
     if keyboard.is_pressed('r'):
         print("test")
         export_landmark(results, vars["label"], vars["recordID"])

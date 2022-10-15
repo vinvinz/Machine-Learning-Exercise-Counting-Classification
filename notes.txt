@@ -3,3 +3,29 @@
 
     #To run Jupyter Notebook type:
     jupyter notebook
+
+
+#Dataset labels
+
+-- SIT UPS --
+1: Situps Down
+2: Situps Up
+
+Situps 0 row 2-19
+Situps 1 row 20-45
+Situps 2 X
+Situps 3 row 46-66
+Situps 4 X
+Situps 5 row 67-75
+
+
+-- PUSH UPS --
+3: Pushups Down
+4: Pushups Up
+
+Pushups 1 row 76-83
+Pushups 2 row 84-90
+Pushups 3 row 91-101
+Pushups 4 row 102-110
+Pushups 5 row 111-118
+Pushups 6 row 119-124
