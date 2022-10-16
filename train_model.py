@@ -51,6 +51,7 @@ for algo, model in fit_models.items():
 
 
 #Print Confusion Matrix of the trained model
+
 # model = fit_models['sv']
 # model.fit(X_train, y_train)
 # y_pred = model.predict(X_test)
@@ -67,6 +68,7 @@ for algo, model in fit_models.items():
 
 
 #Save Trained model in pickle
+
 # model = fit_models['kn']
 # model.fit(X_train, y_train)
 
@@ -77,5 +79,6 @@ for algo, model in fit_models.items():
 
 
 #Load trained model with the pkl file
+
 # with open('exercise.pkl', 'rb') as f:
 #     model = pickle.load(f)

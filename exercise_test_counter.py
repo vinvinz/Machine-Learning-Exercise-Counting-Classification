@@ -13,8 +13,11 @@ mp_pose = mp.solutions.pose
 reps_counter=0
 reps_duration=0
 current_pos=''
+prev_pos=''
+pTime = time.time()
+cTime = 0
 
-cap = cv2.VideoCapture('../videos/Push-up/push-up_7.mp4')
+cap = cv2.VideoCapture('../videos/Push-up/push-up_12.mp4')
 
 with open('exercise.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -55,18 +58,33 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             
             if(pose_classification==1.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Situps Down"
+                if(prev_pos=="Situps UP"):
+                    reps_counter = reps_counter + 1
+                    cTime = time.time()
+                    reps_duration = cTime-pTime
             elif(pose_classification==2.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Situps UP"
+                pTime = time.time()
             elif(pose_classification==3.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Pushups Down"
+                pTime = time.time()
             elif(pose_classification==4.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Pushups UP"
-                
-            print(current_pos)
+                if(prev_pos=="Pushups Down"):
+                    reps_counter = reps_counter + 1  
+                    cTime = time.time()
+                    reps_duration = cTime-pTime  
             
-            cv2.rectangle(image, (0,0), (150, 30), (245, 117, 16), -1)
+            reps_duration = round(reps_duration, 2)
+            cv2.rectangle(image, (0,0), (250, 40), (245, 117, 16), -1)
             cv2.putText(image, current_pos
-                        , (5,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+                        , (5,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+            cv2.putText(image, str(reps_counter)
+                        , (10,80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2, cv2.LINE_AA)
+            cv2.putText(image, str(reps_duration)
+                        , (10,140), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2, cv2.LINE_AA)
+            
+            prev_pos = current_pos
             
         except Exception as e:
             # print(e)
