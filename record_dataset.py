@@ -10,11 +10,11 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
 
-cap = cv2.VideoCapture('../videos/Situps.jpg')
+cap = cv2.VideoCapture('../videos/Sit-ups/situps5.mp4')
 
 #array of variables containing file urls, labels etc.
 vars = {
-    "label": 4,
+    "label": "Pushup_up",
     "recordID": 0,
     "csvFile": "test_dataset.csv",
     "mediaURL": ""
@@ -54,7 +54,7 @@ with mp_pose.Pose(
     min_tracking_confidence=0.5) as pose:
   while cap.isOpened():
     success, image = cap.read()
-    # image = cv2.resize(image, (960, 540))
+    image = cv2.resize(image, (960, 540))
     if not success:
       print("Ignoring empty camera frame.")
       # If loading a video, use 'break' instead of 'continue'.
@@ -73,15 +73,18 @@ with mp_pose.Pose(
         image,
         results.pose_landmarks,
         mp_pose.POSE_CONNECTIONS,
-        landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
+        # landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
+        #Customized circle and connectors colors
+        mp_drawing.DrawingSpec(color=(0,255,255), thickness=0, circle_radius=0),
+        mp_drawing.DrawingSpec(color=(255,255,0), thickness=2, circle_radius=1))
     # Flip the image horizontally for a selfie-view display.
     if not results.pose_landmarks:
       continue    
     
     # If condition for triggering dataset capture
-    export_landmark(results, vars["label"], vars["recordID"])
     if keyboard.is_pressed('r'):
-        print("test")
+        print("Landmarks Saved.")
+        print(vars["label"])
         export_landmark(results, vars["label"], vars["recordID"])
     
     # print("X:",round(results.pose_landmarks.landmark[mp_pose.PoseLandmark.NOSE].x, 4), "Y:", round(results.pose_landmarks.landmark[mp_pose.PoseLandmark.NOSE].y, 4), "Z:", round(results.pose_landmarks.landmark[mp_pose.PoseLandmark.NOSE].z, 4), "V:", round(results.pose_landmarks.landmark[mp_pose.PoseLandmark.NOSE].visibility,4), "Ankle:", round(results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_ANKLE].visibility, 4))
