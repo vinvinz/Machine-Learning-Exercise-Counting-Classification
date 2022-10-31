@@ -17,7 +17,7 @@ prev_pos=''
 pTime = time.time()
 cTime = 0
 
-cap = cv2.VideoCapture('../videos/Push-up/push-up_12.mp4')
+cap = cv2.VideoCapture('../videos/Sit-ups/situps8.mp4')
 
 with open('exercise.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -87,7 +87,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             prev_pos = current_pos
             
         except Exception as e:
-            # print(e)
+            print(e)
             pass
         
         cv2.imshow('MediaPipe Pose', image)

@@ -11,6 +11,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.model_selection import cross_val_score
 import pickle
 
 df = pd.read_csv('test_dataset.csv')
@@ -52,17 +53,29 @@ for algo, model in fit_models.items():
 
 #Print Confusion Matrix of the trained model
 
-# model = fit_models['sv']
-# model.fit(X_train, y_train)
-# y_pred = model.predict(X_test)
+model = fit_models['kn']
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)\
+    
+#
+cv_scores = cross_val_score(model, X, y, cv=5)
+print(cv_scores)
+print('cv_scores mean:{};'.format(np.mean(cv_scores)))
 
 # print(classification_report(y_test, y_pred))
 # df_cm = confusion_matrix(y_test, y_pred)
 # print(model.score(X_train, y_train))
 
-# # Plot the confution matrix of 4 classes in the Model
+# Plot the confution matrix of 4 classes in the Model
+# ax = plt.subplot()
+
 # sn.set(font_scale=1.4) # for label size
 # sn.heatmap(df_cm, annot=True, annot_kws={"size": 32}) # font size
+# ax.set_xlabel('Actual')
+# ax.set_ylabel('Predicted')
+# ax.set_title("Multi-Class Confusion Matrix")
+# ax.xaxis.set_ticklabels(['Situps Up', 'Situps Down', 'Pushups Up', 'Pushups Down'])
+# ax.yaxis.set_ticklabels(['Situps Up', 'Situps Down', 'Pushups Up', 'Pushups Down'])
 
 # plt.show()
 
