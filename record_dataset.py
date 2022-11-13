@@ -14,7 +14,7 @@ cap = cv2.VideoCapture('../videos/Sit-ups/situps5.mp4')
 
 #array of variables containing file urls, labels etc.
 vars = {
-    "label": "Pushup_up",
+    "label": 4.0,
     "recordID": 0,
     "csvFile": "test_dataset.csv",
     "mediaURL": ""

@@ -16,6 +16,8 @@ import pickle
 
 df = pd.read_csv('test_dataset.csv')
 
+print(df.head())
+
 X = df.iloc[:,1:]
 y = df.iloc[:,0]
 
@@ -40,22 +42,22 @@ for algo, model in fit_models.items():
           "Precision:", precision_score(y_test.values, yhat, average='macro'),
           "Recall:", recall_score(y_test.values, yhat, average='macro'))
 
-# # model = svm.SVC()
-# # model = KNeighborsClassifier(n_neighbors=3)
+# model = svm.SVC()
+# model = KNeighborsClassifier(n_neighbors=3)
 # model = LogisticRegression()
-# # model.fit(X, y)
+# model.fit(X, y)
 
-# # y_pred = model.predict(X_test[0])
-# # print((y==y_pred).sum())
-# # print((y==y_pred).sum()/y.shape[0])
-# # print(model.score(X, y))
+# y_pred = model.predict(X_test[0])
+# print((y==y_pred).sum())
+# print((y==y_pred).sum()/y.shape[0])
+# print(model.score(X, y))
 
 
 #Print Confusion Matrix of the trained model
 
 model = fit_models['kn']
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)\
+y_pred = model.predict(X_test)
     
 #
 cv_scores = cross_val_score(model, X, y, cv=5)

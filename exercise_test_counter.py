@@ -5,6 +5,7 @@ import numpy as np
 import pickle
 import time
 from landmarks import firstRow
+from angle_calculator import calcAngle
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -16,8 +17,12 @@ current_pos=''
 prev_pos=''
 pTime = time.time()
 cTime = 0
+count_reset = True
 
-cap = cv2.VideoCapture('../videos/Sit-ups/situps8.mp4')
+cap = cv2.VideoCapture('../videos/Push-up/pushup8_flipped.mp4')
+
+
+# '../videos/Sit-up/situps3.mp4'
 
 with open('exercise.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -58,24 +63,44 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             
             if(pose_classification==1.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Situps Down"
-                if(prev_pos=="Situps UP"):
+                if(count_reset == True):
+                    pTime = time.time()
+                    count_reset = False
+                if(prev_pos=="Situps UP" and count_reset == False):
                     reps_counter = reps_counter + 1
                     cTime = time.time()
                     reps_duration = cTime-pTime
+                    count_reset = True
+                    print("Prev time: ", pTime, "\nCurrent Time: ", cTime, "\nDifference: ", reps_duration)
             elif(pose_classification==2.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Situps UP"
-                pTime = time.time()
             elif(pose_classification==3.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Pushups Down"
-                pTime = time.time()
             elif(pose_classification==4.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Pushups UP"
+                if(count_reset == True):
+                    pTime = time.time()
+                    count_reset = False
                 if(prev_pos=="Pushups Down"):
                     reps_counter = reps_counter + 1  
                     cTime = time.time()
                     reps_duration = cTime-pTime  
+                    count_reset = True
+                    
+            
+                    
+            #calculate angle for situps
+            
+            a = np.array([results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER].x, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER].y, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER].z])
+            b = np.array([results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP].x, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP].y, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP].z])
+            c = np.array([results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_KNEE].x, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_KNEE].y, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_KNEE].z])
+            
+            angle = round(calcAngle(a, b, c),2)
+            
+            angle = "Angle: " + str(angle)
             
             reps_duration = round(reps_duration, 2)
+            
             cv2.rectangle(image, (0,0), (250, 40), (245, 117, 16), -1)
             cv2.putText(image, current_pos
                         , (5,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
@@ -83,6 +108,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                         , (10,80), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2, cv2.LINE_AA)
             cv2.putText(image, str(reps_duration)
                         , (10,140), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2, cv2.LINE_AA)
+            cv2.putText(image, str(angle)
+                        , (10,210), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             
             prev_pos = current_pos
             
