@@ -19,10 +19,12 @@ pTime = time.time()
 cTime = 0
 count_reset = True
 
-cap = cv2.VideoCapture('../videos/Push-up/pushup8_flipped.mp4')
+cap = cv2.VideoCapture('../videos/Sit-up/situps3.mp4')
 
-
+# '../videos/Push-up/pushup5.mp4'
+# '../videos/Sit-up/situps0.mp4'
 # '../videos/Sit-up/situps3.mp4'
+# '../videos/Push-up/pushup8_flipped.mp4'
 
 with open('exercise.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -71,7 +73,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                     cTime = time.time()
                     reps_duration = cTime-pTime
                     count_reset = True
-                    print("Prev time: ", pTime, "\nCurrent Time: ", cTime, "\nDifference: ", reps_duration)
+                    # print("Prev time: ", pTime, "\nCurrent Time: ", cTime, "\nDifference: ", reps_duration)
             elif(pose_classification==2.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Situps UP"
             elif(pose_classification==3.0 and pose_prob[pose_prob.argmax()]>=.95):
