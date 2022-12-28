@@ -19,12 +19,14 @@ pTime = time.time()
 cTime = 0
 count_reset = True
 
-cap = cv2.VideoCapture('../videos/Sit-up/situps3.mp4')
+cap = cv2.VideoCapture('./training_videos/Plank/planking-vid-5.mp4')
 
 # '../videos/Push-up/pushup5.mp4'
 # '../videos/Sit-up/situps0.mp4'
 # '../videos/Sit-up/situps3.mp4'
 # '../videos/Push-up/pushup8_flipped.mp4'
+# './training_videos/Sit-up/situps3.mp4'
+
 
 with open('exercise.pkl', 'rb') as f:
     model = pickle.load(f)

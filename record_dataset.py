@@ -33,16 +33,17 @@ def writeCSV(csvFile, list):
         with open(csvFile, mode="a", newline='') as new_file:
                 write_content = csv.writer(new_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 write_content.writerow(list)
+                print("Landmark Recorded Successfully.")
     except Exception as e:
         print(e)
         pass
 
-def export_landmark(result, label, recordID):
+def export_landmark(result, label, csvFilePath):
     try:
         keypoints = np.array([[res.x,res.y] for res in result.pose_landmarks.landmark]).flatten()
         keypoints = np.insert(keypoints, 0, label)
         print(keypoints)
-        writeCSV(vars["csvFile"], keypoints)
+        writeCSV(csvFilePath, keypoints)
     except Exception as e:
         print(e)
         pass
