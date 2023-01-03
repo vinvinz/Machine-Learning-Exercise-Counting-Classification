@@ -4,6 +4,7 @@ import customtkinter as ck
 from tkinter import ttk, filedialog
 from tkinter.filedialog import askopenfile
 import os
+import threading
 
 import cv2
 import mediapipe as mp
@@ -18,7 +19,7 @@ from PIL import Image, ImageTk
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_pose = mp.solutions.pose
-pose = mp_pose.Pose(min_tracking_confidence=0.8, min_detection_confidence=0.8)
+pose = mp_pose.Pose(min_tracking_confidence=0.9, min_detection_confidence=0.9)
 
       
 class datasetGUI:
@@ -27,7 +28,7 @@ class datasetGUI:
         self.root = tk.Tk()
         self.root.geometry("720x540")
         
-        self.csv_filepath = ""
+        self.csv_filepath = "test_dataset.csv"
         self.dataset_label = ""
         
         self.frame = tk.Frame(height=380, width=720)
@@ -36,6 +37,8 @@ class datasetGUI:
         self.lmain.place(x=0, y=0)
         
         self.utilityComponents()
+        
+        self.root.update_idletasks()
         
         self.root.mainloop() 
         
@@ -68,13 +71,21 @@ class datasetGUI:
         label = Label(self.root, text="Open Video File:", font=('Arial 11'))
         label.place(x=0, y=390)
         
-        
+    def pause(self):
+        for i in range(1):
+            
+            self.root.update_idletasks()
+            
+            time.sleep(1)
+              
     def openVideo(self, vidpath):
         cap = cv2.VideoCapture(vidpath)
         
         label = Label(self.root, text="Choose CSV File:", font=('Arial 11'))
         label.place(x=0, y=430)
-        ttk.Button(self.root, text="CSV Location", command=self.open_csv).place(x=130, y=430)
+        
+        ttk.Button(self.root, text="Pause", command=self.pause).place(x=330, y=470)
+        # ttk.Button(self.root, text="Pause", command=self.run_thread).place(x=330, y=500)
         
         Label(self.root, text="Row Label: ", font=('Arial 11')).place(x=0, y=470)
         self.dataset_label = tk.Entry(self.root, width=10, textvariable = 0)
@@ -97,6 +108,8 @@ class datasetGUI:
             self.lmain.after(10, detect) 
         
         ttk.Button(self.root, text="Record Data", command=lambda: self.record_landmarks(result=self.results, label=self.dataset_label.get(), csvFilePath=self.csv_filepath)).place(x=0, y=490)    
+        
+        ttk.Button(self.root, text="CSV Location", command=self.open_csv).place(x=130, y=430)
         
         detect()        
         # with mp_pose.Pose(
