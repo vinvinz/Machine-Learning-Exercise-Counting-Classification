@@ -55,14 +55,14 @@ for algo, model in fit_models.items():
 
 #Print Confusion Matrix of the trained model
 
-model = fit_models['kn']
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
+# model = fit_models['kn']
+# model.fit(X_train, y_train)
+# y_pred = model.predict(X_test)
     
-#
-cv_scores = cross_val_score(model, X, y, cv=5)
-print(cv_scores)
-print('cv_scores mean:{};'.format(np.mean(cv_scores)))
+# 
+# cv_scores = cross_val_score(model, X, y, cv=5)
+# print(cv_scores)
+# print('cv_scores mean:{};'.format(np.mean(cv_scores)))
 
 # print(classification_report(y_test, y_pred))
 # df_cm = confusion_matrix(y_test, y_pred)
@@ -84,13 +84,13 @@ print('cv_scores mean:{};'.format(np.mean(cv_scores)))
 
 #Save Trained model in pickle
 
-# model = fit_models['kn']
-# model.fit(X_train, y_train)
+model = fit_models['kn']
+model.fit(X_train, y_train)
 
-# saved_model = pickle.dumps(model)
+saved_model = pickle.dumps(model)
 
-# with open('exercise.pkl', 'wb') as f:
-#     pickle.dump(model, f)
+with open('exercisev2.pkl', 'wb') as f:
+    pickle.dump(model, f)
 
 
 #Load trained model with the pkl file

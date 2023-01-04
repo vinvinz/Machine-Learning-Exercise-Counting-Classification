@@ -74,3 +74,24 @@ squats-vid-11 Down position row 302-305
 squats-vid-11 Up position row 306-309
 squats-vid-12 Up position row 310-315
 squats-vid-12 Down position row 316-321
+
+-- JUMPING JACK --
+8: Jumping Jack Up/End Position
+9: Jumping Jack Down/Start Idle
+
+jumpjack-vid-1 Up 322-329
+jumpjack-vid-1 Down 330-336
+jumpjack-vid-2 Up 337-347
+jumpjack-vid-2 Down 348-363
+jumpjack-vid-3 Up 364-383
+jumpjack-vid-3 Down 384-403
+jumpjack-vid-4 Up 404-418
+jumpjack-vid-4 Down 419-439
+jumpjack-vid-5 Up 440-482
+jumpjack-vid-5 Down 483-513
+jumpjack-vid-6 Up 514-518
+jumpjack-vid-6 Down 519-526
+jumpjack-vid-7 Up 527-539
+jumpjack-vid-7 Down 540-551
+jumpjack-vid-8 Up 552-558
+jumpjack-vid-8 Down 559-566
