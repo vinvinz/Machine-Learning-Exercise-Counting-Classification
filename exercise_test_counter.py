@@ -19,7 +19,7 @@ pTime = time.time()
 cTime = 0
 count_reset = True
 
-cap = cv2.VideoCapture('./training_videos/Push-up/pushup10.mp4')
+cap = cv2.VideoCapture("./training_videos/Plank/planking-vid-1.mp4")
 
 # '../videos/Push-up/pushup5.mp4'
 # '../videos/Sit-up/situps0.mp4'

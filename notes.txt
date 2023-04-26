@@ -5,7 +5,175 @@
     jupyter notebook
 
 
-#Dataset labels
+#Dataset labels (NEW)
+
+-- SIT UPS --
+1: Situps Down
+2: Situps Up
+
+situps 0{
+    down: row 444-445
+    up: row 446-447
+
+    (flipped)
+    down: row 448-449
+    up: row 450-452
+}
+
+situps 1{
+    down: row 453-455
+    up: row 456-459
+
+    (flipped)
+    down: row 460-463
+    up: row 464-466
+}
+
+situp 2 skipped
+
+situps 3{
+    down: row 467-469
+    up: row 470-473
+
+    (flipped)
+    down: row 474-477
+    up: row 478-481
+}
+
+situp4 skipped
+
+situps 5{
+    down: row 482
+    up: row 483
+}
+
+situps 8{
+    down: row 484-486
+    up: row 487-490
+}
+
+situps 9{
+    down: row 491-492
+    up: row 493-495
+
+    (flipped)
+    down: row 496-497
+    up: row 498-499
+}
+
+situps 10{
+    down: row 500-501
+    up: row 502-504
+
+    (flipped)
+    down: row 505-507
+    up: row 508-510
+}
+
+situps 11{
+    down: row 511-515
+    up: row 516-521
+
+    (flipped)
+    down: row 522-528
+    up: row 529-540
+}
+
+situps 12{
+    down: row 541-543
+    up: row 544-546
+
+    (flipped)
+    down: row 547-549
+    up: row 550-551
+}
+
+
+-- PUSH UPS --
+3: Pushups Down
+4: Pushups Up
+
+pushup 1{
+    down: row 552-554
+    up: row 555-556
+
+    (flipped)
+    down: row 557-559
+    up: row 560-561
+}
+
+pushup 2{
+    down: row 562-563
+    up: row 564-565
+
+    (flipped)
+    down: row 566-567
+    up: row 568-569
+}
+
+pushup 3 skipped
+
+pushup 5{
+    down: row 570-571
+    up: row 572-574
+
+    (flipped)
+    down: row 575-576
+    up: row 577-578
+}
+
+pushup 6{
+    down: row 579-580
+    up: row 581
+
+    (flipped)
+    down: row 582-583
+    up: row 584
+}
+
+pushup 8{
+    down: row 585-587
+    up: row 588-590
+}
+
+pushup 10{
+    up: row 591 
+}
+
+pushup 11{
+    down: row 592-596
+    up: row 597-602
+
+    (flipped)
+    down: row 603-608
+    up: row 609-614
+}
+
+pushup 12{
+    down: row 615
+    up: row 616
+
+    (flipped)
+    down: row 617
+    up: row 618
+}
+
+pushup 13{
+    down: row 619
+    up: row 620-621
+}
+
+pushup 14{
+    down: row 622
+    up: row 623
+}
+
+pushup 15{
+    down: row 624-626
+    up: row 627-628
+}
+
+#Dataset labels (OLD)
 
 -- SIT UPS --
 1: Situps Down
@@ -17,6 +185,7 @@ Situps 2 X
 Situps 3 row 46-66
 Situps 4 X
 Situps 5 row 67-75
+Situps 6
 
 
 -- PUSH UPS --

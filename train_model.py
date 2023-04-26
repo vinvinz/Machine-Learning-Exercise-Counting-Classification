@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score
 from sklearn.model_selection import cross_val_score
 import pickle
 
-df = pd.read_csv('test_dataset.csv')
+df = pd.read_csv('newdataset.csv')
 
 print(df.head())
 
@@ -64,9 +64,6 @@ for algo, model in fit_models.items():
 # print(cv_scores)
 # print('cv_scores mean:{};'.format(np.mean(cv_scores)))
 
-# print(classification_report(y_test, y_pred))
-# df_cm = confusion_matrix(y_test, y_pred)
-# print(model.score(X_train, y_train))
 
 # Plot the confution matrix of 4 classes in the Model
 # ax = plt.subplot()
@@ -86,10 +83,15 @@ for algo, model in fit_models.items():
 
 model = fit_models['kn']
 model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+print(classification_report(y_test, y_pred))
+df_cm = confusion_matrix(y_test, y_pred)
+print(model.score(X_train, y_train))
 
 saved_model = pickle.dumps(model)
 
-with open('exercisev2.pkl', 'wb') as f:
+with open('exercisev3.pkl', 'wb') as f:
     pickle.dump(model, f)
 
 

@@ -28,7 +28,7 @@ class datasetGUI:
         self.root = tk.Tk()
         self.root.geometry("720x540")
         
-        self.csv_filepath = "test_dataset.csv"
+        self.csv_filepath = "newdataset.csv"
         self.dataset_label = ""
         
         self.frame = tk.Frame(height=380, width=720)
