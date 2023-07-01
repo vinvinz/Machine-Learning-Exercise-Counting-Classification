@@ -19,16 +19,11 @@ pTime = time.time()
 cTime = 0
 count_reset = True
 
-cap = cv2.VideoCapture("./training_videos/Plank/planking-vid-1.mp4")
+# Change Video the video path according to the path of the video you want to play in your machine
 
-# '../videos/Push-up/pushup5.mp4'
-# '../videos/Sit-up/situps0.mp4'
-# '../videos/Sit-up/situps3.mp4'
-# '../videos/Push-up/pushup8_flipped.mp4'
-# './training_videos/Sit-up/situps3.mp4'
+cap = cv2.VideoCapture("./training_videos/Jumping-jack/jumpjack-vid-5.mp4")
 
-
-with open('exercisev2.pkl', 'rb') as f:
+with open('exercisev3.pkl', 'rb') as f:
     model = pickle.load(f)
 
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
@@ -54,8 +49,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             mp_pose.POSE_CONNECTIONS,
             # landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
             #Customized circle and connectors colors
-            mp_drawing.DrawingSpec(color=(0,255,255), thickness=0, circle_radius=0),
-            mp_drawing.DrawingSpec(color=(255,255,0), thickness=2, circle_radius=1))
+            mp_drawing.DrawingSpec(color=(0,215,14), thickness=2, circle_radius=2),
+            mp_drawing.DrawingSpec(color=(255,1,18), thickness=2, circle_radius=1))
         
         landmarks = firstRow()
         
@@ -94,15 +89,31 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 current_pos = "Planking"       
             elif(pose_classification==6.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Squat Up"  
+                if(count_reset == True):
+                    pTime = time.time()
+                    count_reset = False
+                if(prev_pos=="Squat Down"):
+                    reps_counter = reps_counter + 1  
+                    cTime = time.time()
+                    reps_duration = cTime-pTime  
+                    count_reset = True
             elif(pose_classification==7.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Squat Down"  
             elif(pose_classification==8.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Jump Jack Up" 
             elif(pose_classification==9.0 and pose_prob[pose_prob.argmax()]>=.95):
                 current_pos = "Jump Jack Down" 
+                if(count_reset == True):
+                    pTime = time.time()
+                    count_reset = False
+                if(prev_pos=="Jump Jack Up"):
+                    reps_counter = reps_counter + 1  
+                    cTime = time.time()
+                    reps_duration = cTime-pTime  
+                    count_reset = True
             
                     
-            #calculate angle for situps
+            #calculate angle of Left Shoulder, Left Hip, and Left Knee 
             
             a = np.array([results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER].x, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER].y, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_SHOULDER].z])
             b = np.array([results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP].x, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP].y, results.pose_landmarks.landmark[mp_pose.PoseLandmark.LEFT_HIP].z])
@@ -122,7 +133,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             cv2.putText(image, str(reps_duration)
                         , (10,140), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 2, cv2.LINE_AA)
             cv2.putText(image, str(angle)
-                        , (10,210), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+                        , (10,210), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2, cv2.LINE_AA)
             
             prev_pos = current_pos
             
