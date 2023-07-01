@@ -30,7 +30,7 @@ The score of the latest ML Model (exercisev3.pkl):
 The Confusion Matrix produced through testing the prediction of the ML Model:
 ![ML Model Confusion Matrix](https://github.com/vinvinz/Machine-Learning-Exercise-Counting-Classification/assets/80497740/2951eb7a-fc98-4939-bc48-94664b1b77ae)
 
-# How to use the repository
+### How to use the repository
 1. Create a Python virtual environment
 2. Activate the Python environment
 3. Install the dependencies in requirements.txt
